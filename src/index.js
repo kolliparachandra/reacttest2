@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-
+import Stream from './components/stream'
 const tracks=[
     {
         title:'some track'
@@ -10,9 +10,5 @@ const tracks=[
     }
 ];
 ReactDOM.render(
-<div>
-    {
-        tracks.map((track,key) => <div className='track' key={key}>{track.title}</div>)
-    }
-</div>,document.getElementById('app'))
+<Stream tracks={tracks} />,document.getElementById('app'))
 module.hot.accept();
