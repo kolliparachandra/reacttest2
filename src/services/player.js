@@ -1,0 +1,2 @@
+export const isSameTrackAndPlaying=(activeTrackId,trackId,isPlaying)=> activeTrackId && isPlaying && activeTrackId === trackId;
+export const isSameTrack=(trackId)=>(id)=>trackId && id && trackId === id;

@@ -1,0 +1,1 @@
+export const getTracknameFilter=(query)=>(activity)=>activity.title.toLowerCase().indexOf(query) !== -1;

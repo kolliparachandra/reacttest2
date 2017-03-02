@@ -1,6 +1,16 @@
 import React from 'react'
-const Stream=({tracks=[]})=>{
+const Stream=({tracks=[],user,onAuth})=>{
         return(
+                <div>
+                        <div>
+                         {
+                                user?
+                                <div>{user}</div>:
+                                <button onClick={onAuth} type="button">Login</button>
+                        }
+                        </div>
+                        <br />
+                        
         <div>
         {
         tracks.map((track,key) => 
@@ -9,6 +19,7 @@ const Stream=({tracks=[]})=>{
            
         </div>)
         }
+        </div>
         </div>
         )
 }
