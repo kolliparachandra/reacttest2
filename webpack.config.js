@@ -7,11 +7,23 @@ module.exports={
         './src/index.js'
     ],
     module:{
+        preLoaders:[
+            {
+            test: /\.js$/,
+            exclude:/node_modules/,
+            loader:'eslint-loader'    
+        }
+        ],
         loaders:[{
             test:/\.jsx?$/,
             exclude:/node_modules/,
-            loader:'react-hot-loader!babel-loader'
-        }]
+            loader:'babel-loader'
+        },
+        {
+            test:/\.scss$/,
+            loader:'style!css!sass'
+        }
+        ]
     },
     resolve:{
         extensions:['*','.js','.jsx']
@@ -26,9 +38,18 @@ module.exports={
         hot:true,
         historyApiFallback:true
     },
-    plugins:[
+    eslint:{
+        configFile:'./.eslintrc'
+    },
+     plugins:[
+        new webpack.HotModuleReplacementPlugin(),
         new webpack.ProvidePlugin({
             'fetch':'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch'
+        }),
+        new webpack.DefinePlugin({
+            'process.env':{
+                'NODE_ENV':'"development"'
+            }
         })
     ]
 };
