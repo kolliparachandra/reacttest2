@@ -1,7 +1,7 @@
-import {Schema} from 'normalizr'
+import {schema} from 'normalizr'
 import userSchema from './user'
 
-const trackSchema= new Schema('tracks')
+const trackSchema= new schema.Entity('tracks')
 
 trackSchema.define({
     user:userSchema

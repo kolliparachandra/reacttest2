@@ -1,4 +1,4 @@
-import {Schema} from 'normalizr'
-const userSchema= new Schema('users')
+import {schema} from 'normalizr'
+const userSchema= new schema.Entity('users')
 
 export default userSchema;

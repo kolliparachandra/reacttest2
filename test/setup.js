@@ -1,20 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {expect} from 'chai'
-import jsdom from 'jsdom'
- 
- const doc = jsdom.jsdom('<!doctype html><html><body></body></html>')
- const win = doc.defaultView;
+import chai,{expect} from 'chai'
+import {jsdom} from 'jsdom'
+import sinon from 'sinon'
+import sinonChai from 'sinon-chai'
+import chaiAsPromised from 'chai-as-promised'
+import {shallow,mount,render} from 'enzyme'
+import chaiEnzyme from 'chai-enzyme'
 
- global.document = doc;
- global.window = win;
- global.navigator = {userAgent: 'node.js'};
+chai.use(sinonChai);
+chai.use(chaiAsPromised)
+chai.use(chaiEnzyme())
 
- Object.keys(window).forEach((key)=>{
-     if(!(key in global)){
-         global[key] = window.key;
-     }
- })
+global.document = jsdom('');
+global.window = document.defaultView;
+global.navigator = {userAgent: 'browser'};
 
- global.React = React;
- global.expect = expect;
+global.React = React;
+global.expect = expect;
+
+global.fdescribe= (...args)=>describe.only(...args)
+global.fit=(...args)=>it.only(...args)

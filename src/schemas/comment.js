@@ -1,7 +1,7 @@
-import {Schema} from 'normalizr'
+import {schema} from 'normalizr'
 import userSchema from './user'
 
-const commentSchema = new Schema('comments')
+const commentSchema = new schema.Entity('comments')
 
 commentSchema.define({
     user:userSchema
