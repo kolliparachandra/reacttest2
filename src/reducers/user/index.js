@@ -52,6 +52,8 @@ const initialState = {
                 ...state,favorites:[...state.slice(0,index),...state.slice(index+1)]
             }
         }
+        default:
+        return state;
     }
 }
 
