@@ -23,6 +23,10 @@ import mapValues from 'lodash/fp/mapValues'
 import partition from 'lodash/fp/partition'
 import reject from 'lodash/fp/reject'
 import remove from 'lodash/fp/remove'
+import some from 'lodash/fp/some'
+import takeRightWhile from 'lodash/fp/takeRightWhile'
+import takeWhile from 'lodash/fp/takeWhile'
+import times from 'lodash/fp/times'
 const response= {
     status:400
 }
@@ -82,4 +86,10 @@ console.log(reject(val=>val.active === false,users))
 
 const newusers = users;
 console.log(remove(val=>val.active === true,users))
-console.log(users)
+
+console.log(some(val=>val.active === true,users))
+
+console.log(takeRightWhile(val=>val.active === false,users))
+
+console.log(takeWhile(val=>val.active === true,users))
+console.log(times(Number,4))
