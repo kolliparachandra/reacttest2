@@ -11,7 +11,7 @@ import findIndex from 'lodash/fp/findIndex'
 import findKey from 'lodash/fp/findKey'
 import flatMap from 'lodash/fp/flatMap'
 import flatMapDeep from 'lodash/fp/flatMapDeep'
-import flatMapDepth from 'lodash/flatMapDepth'
+import flatMapDepth from 'lodash/fp/flatMapDepth'
 import forEach from 'lodash/fp/foreach'
 import forEachRight from 'lodash/fp/forEachRight'
 import forIn from 'lodash/fp/forIn'
@@ -47,18 +47,33 @@ const usersArray = [
   ];
 const isSuccess= flow(get('status'),isEqual(200));
 console.log(isSuccess(response));
-console.log(map(parseInt,['6', '8', '10']));
+const mapfp = map(parseInt);
+console.log(mapfp(['6', '8', '10']));
 //iteratee first data last
-console.log(dropRightWhile((val)=>val.active===false,users))
-console.log(dropWhile((val)=>val.active===true,users))
-console.log(every((val)=>val.active===true || val.active===false,users))
-console.log(filter(val=>val.active===true,users))
-console.log(find(val=>val.active===true,users))
-console.log(findIndex(val=>val.active===false,users))
-console.log(findKey(val=>val.active===true,usersDict))
-console.log(flatMap(val=>[val,val],usersArray))
-console.log(flatMapDeep(val=>[val,val],usersArray))
-console.log(flatMapDepth(usersArray,val=>[val,val],3))
+const printObjects=(method,val)=>{
+  console.log(method); 
+  if(typeof val !== [])
+    console.log(val)
+  else
+    val.forEach((obj)=>console.log(obj))
+}
+const dropRwh = dropRightWhile((val)=>val.active===false)
+
+printObjects('dropRwh',dropRwh(users))
+const dropWh = dropWhile((val)=>val.active===true)
+printObjects('dropWh',dropWh(users))
+const evry = every((val)=>val.active===true || val.active===false)
+console.log(`evry=${evry(users)}`)
+const filtr = filter(val=>val.active===true)
+printObjects('filtr',filtr(users))
+printObjects('find',(find(val=>val.active===true)(users)))
+printObjects('findIndex',(findIndex(val=>val.active===false)(users)))
+printObjects('findKey',findKey(val=>val.active===true)(usersDict))
+printObjects('flatMap',flatMap(val=>[val,val])(usersArray))
+printObjects('flatMapDeep',flatMapDeep(val=>[val,val])(usersArray))
+printObjects('flatMapDepth',flatMapDepth.convert({caps:false})(val=>[val,val])(usersArray,4))
+
+
 forEach(val=>console.log(val.user),users)
 forEachRight(val=>console.log(val.user),users)
 function foo(){ this.memberKey =1};

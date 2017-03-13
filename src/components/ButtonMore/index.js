@@ -1,17 +1,13 @@
-import * as actionTypes from '../../constants/actionTypes'
-const browse=(state={},action)=>{
-    switch(action.type){
-        case actionTypes.MERGE_GENRE_ACTIVITIES:{
-            const oldList = state[action.genre] ||[];
-            const newList = [...oldList,...action.activities]
-        return{
-            ...state,
-            [action.genre]:newList
-        }
-    }
-    default:
-    return state;
-    }
+import React from 'react'
+import withLoadingSpinner from '../withLoadingSpinner'
+import ButtonGhost from '../ButtonGhost'
+const ButtonMore=({onClick,nextHref,isHidden})=>{
+    return(
+        <div className='button-more'>
+            {
+                !nextHref || isHidden?null:<ButtonGhost onClick={onClick}>More</ButtonGhost>
+            }
+            </div>
+    )
 }
-
-export default browse;
+export default withLoadingSpinner(ButtonMore);

@@ -1,17 +1,12 @@
-import * as actionTypes from '../../constants/actionTypes'
-const browse=(state={},action)=>{
-    switch(action.type){
-        case actionTypes.MERGE_GENRE_ACTIVITIES:{
-            const oldList = state[action.genre] ||[];
-            const newList = [...oldList,...action.activities]
-        return{
-            ...state,
-            [action.genre]:newList
-        }
-    }
-    default:
-    return state;
-    }
+import React from 'react'
+import classNames from 'classnames'
+const ButtonGhost=({onClick,isSmall,children})=>{
+    const buttonGhostClass = classNames('button-ghost', {'button-ghost-small':isSmall})
+    return(
+        <button className={buttonGhostClass} type='button' onClick={onClick}>
+            {children}
+            </button>
+            )
 }
 
-export default browse;
+export default ButtonGhost;
