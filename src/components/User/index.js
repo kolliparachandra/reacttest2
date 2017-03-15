@@ -1,17 +1,17 @@
-import * as actionTypes from '../../constants/actionTypes'
-const browse=(state={},action)=>{
-    switch(action.type){
-        case actionTypes.MERGE_GENRE_ACTIVITIES:{
-            const oldList = state[action.genre] ||[];
-            const newList = [...oldList,...action.activities]
-        return{
-            ...state,
-            [action.genre]:newList
-        }
-    }
-    default:
-    return state;
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import * as actions from '../../actions'
+import UserPreview from './preview'
+const mapStateToProps=(state,props)=>{
+    return{
+        followings:state.user.followings,
+        user:props.user
     }
 }
-
-export default browse;
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        onFollow:bindActionCreators(actions.follow,dispatch)
+    }
+}
+const UserPreviewContainer=connect(mapStateToProps,mapDispatchToProps)(UserPreview)
+export default UserPreviewContainer

@@ -1,17 +1,6 @@
-import * as actionTypes from '../../constants/actionTypes'
-const browse=(state={},action)=>{
-    switch(action.type){
-        case actionTypes.MERGE_GENRE_ACTIVITIES:{
-            const oldList = state[action.genre] ||[];
-            const newList = [...oldList,...action.activities]
-        return{
-            ...state,
-            [action.genre]:newList
-        }
-    }
-    default:
-    return state;
-    }
-}
-
-export default browse;
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import * as actions from '../../actions'
+import {TrackPlaylist} from './playlist'
+import {TrackPreview} from './preview'
+import {TrackStream} from './stream'

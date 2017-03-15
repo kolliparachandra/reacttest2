@@ -1,17 +1,20 @@
-import * as actionTypes from '../../constants/actionTypes'
-const browse=(state={},action)=>{
-    switch(action.type){
-        case actionTypes.MERGE_GENRE_ACTIVITIES:{
-            const oldList = state[action.genre] ||[];
-            const newList = [...oldList,...action.activities]
-        return{
-            ...state,
-            [action.genre]:newList
-        }
-    }
-    default:
-    return state;
+import React from 'react'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import * as actions from '../../actions'
+import CommentExtension from '../CommentExtension'
+const TrackExtension =({activity,isOpenComment})=>isOpenComment?<CommentExtension activity={activity} />:null
+
+const mapStateToProps=(state,props)=>{
+    const {activity} = props
+    return{
+        activity,
+        isOpenComment:state.comment.openComments[activity.id]
     }
 }
-
-export default browse;
+const mapDispatchToProps=(dispatch,props)=>{
+    return{
+        openComments:bindActionCreators(actions.openComments,dispatch)
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(TrackExtension)

@@ -1,17 +1,55 @@
-import * as actionTypes from '../../constants/actionTypes'
-const browse=(state={},action)=>{
-    switch(action.type){
-        case actionTypes.MERGE_GENRE_ACTIVITIES:{
-            const oldList = state[action.genre] ||[];
-            const newList = [...oldList,...action.activities]
-        return{
-            ...state,
-            [action.genre]:newList
+import React from 'react'
+import Waveform from 'waveform.js'
+import {normalizeSamples,isJsonWaveForm,isPngWaveForm} from '../../services/track'
+const WAVE_COLOR = '#61B25A'
+class WaveformSc extends React.Component{
+    componentDidMount(){
+        const {activity,idx} = this.props
+        
+        if(!activity) return
+        
+        const {waveform_url,id} = activity
+
+        if(!waveform_url) return
+
+        const elementId = this.generateElementId(id,idx)
+        if(isJsonWaveForm(waveform_url)){
+            this.fetchJsonWaveform(elementId,waveform_url)
+        }
+        if(isPngWaveForm(waveform_url)){
+            this.fetchPngWaveform(elementId,activity)
         }
     }
-    default:
-    return state;
+    fetchJsonWaveform(elementId,waveform_url){
+        fetch(waveform_url)
+        .then(response=>response.json())
+        .then((data)=>new Waveform({
+            container:document.getElementById(elementId),
+            innerColor:WAVE_COLOR,
+            data:normalizeSamples(data.samples)
+        }))
     }
-}
+    fetchPngWaveform(elementId,activity){
+        const waveform=new Waveform({
+            container:document.getElementById(elementId),
+            innerColor:WAVE_COLOR
+        })
+        waveform.dataFromSoundCloudTrack(activity)
+    }
 
-export default browse;
+    generateElementId(id,idx){
+        return `waveform-${id}${idx}`
+    }
+    render(){
+        const {activity,idx}= this.props
+        const {id} = activity
+        return <div className='track-waveform-json' id={`waveform-${id}${idx}`} />
+    }
+
+    
+}
+WaveformSc.propTypes={
+    activity:React.PropTypes.object,
+    idx:React.PropTypes.number
+}
+export default WaveformSc;
