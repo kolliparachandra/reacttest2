@@ -1,17 +1,46 @@
-import * as actionTypes from '../../constants/actionTypes'
-const browse=(state={},action)=>{
-    switch(action.type){
-        case actionTypes.MERGE_GENRE_ACTIVITIES:{
-            const oldList = state[action.genre] ||[];
-            const newList = [...oldList,...action.activities]
-        return{
-            ...state,
-            [action.genre]:newList
-        }
-    }
-    default:
-    return state;
+import React from 'react'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import * as actions from '../../actions'
+import toggleTypes from '../../constants/toggleTypes'
+import requestTypes from '../../constants/requestTypes'
+import paginateLinkTypes from '../../constants/paginateLinkTypes'
+import List from '../List'
+const FollowingsList =({currentUser,userEntities,followings,nextHref,requestInProcess,isExpanded,onSetToggle,onFetchFollowings})=>{
+    return(
+        <List title='Following' ids={followings} entities={userEntities} nextHref={nextHref} requestInProcess={requestInProcess} isExpanded={isExpanded} currentUser={currentUser} onToggleMore={()=>onSetToggle(toggleTypes.FOLLOWINGS)} onFetchMore={()=>onFetchFollowings(currentUser,nextHref)} />
+
+    )
+}
+const mapStateToProps=(state,props)=>{
+    const nextHref=state.paginate[paginateLinkTypes.FOLLOWINGS]
+    const requestInProcess=state.request[requestTypes.FOLLOWINGS]
+    const isExpanded=state.toggle[toggleTypes.FOLLOWINGS]
+    return{
+        currentUser:state.session.user,
+        userEntities:state.user.followings,
+        nextHref,
+        requestInProcess,
+        isExpanded
     }
 }
 
-export default browse;
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        onSetToggle:bindActionCreators(actions.setToggle,dispatch),
+        onFetchFollowings:bindActionCreators(actions.fetchFollowings,dispatch)
+    }
+}
+
+FollowingsList.propTypes={
+    currentUser:React.PropTypes.object,
+    userEntities:React.PropTypes.object,
+    followings:React.PropTypes.array,
+    requestInProcess:React.PropTypes.bool,
+    toggle:React.PropTypes.object,
+    onSetToggle:React.PropTypes.func,
+    onFetchFollowings:React.PropTypes.func
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(FollowingsList)
+export {FollowingsList}
