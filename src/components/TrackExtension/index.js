@@ -12,7 +12,7 @@ const mapStateToProps=(state,props)=>{
         isOpenComment:state.comment.openComments[activity.id]
     }
 }
-const mapDispatchToProps=(dispatch,props)=>{
+const mapDispatchToProps=(dispatch)=>{
     return{
         openComments:bindActionCreators(actions.openComments,dispatch)
     }

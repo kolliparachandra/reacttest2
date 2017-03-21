@@ -50,7 +50,7 @@ const mapStateToProps=(state,props)=>{
     }
 }
 
-const mapDispatchToProps=(dispatch,props)=>{
+const mapDispatchToProps=(dispatch)=>{
     return{
         onFetchComments:bindActionCreators(actions.fetchComments,dispatch)
     }

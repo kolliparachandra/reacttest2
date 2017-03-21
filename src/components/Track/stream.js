@@ -33,7 +33,7 @@ const TrackStream = ({
     activeDurationFilterType,
     onActiveTrack
 }) => {
-    const activity = {
+    const  {
         user,
         title,
         duration,
@@ -45,7 +45,7 @@ const TrackStream = ({
         artwork_url,
         permalink_url,
         created_at
-    }
+    } =activity;
     const userEntity = userEntities[user]
     const { avatar_url, username } = userEntity
     const isVisible = isSameTrack(activeTrackId)(activity.id)
