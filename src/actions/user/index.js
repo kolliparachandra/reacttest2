@@ -27,7 +27,7 @@ export const fetchFollowings=(user,nextHref)=>(dispatch,getState)=>{
     return fetch(url).
         then(response => response.json()).
         then(data =>{
-            const normalized=normalize(data.collection,schema.Array(userSchema))
+            const normalized=normalize(data.collection,new schema.Array(userSchema))
             dispatch(mergeEntities(normalized.entities))
             dispatch(mergeFollowings(normalized.result))
             dispatch(setPaginateLink(data.next_href,paginateLinkTypes.FOLLOWINGS))
@@ -68,7 +68,7 @@ export const fetchActivities=(user,nextHref)=>(dispatch,getState)=>{
                dispatch(mergeTrackTypesRepost(filter(value =>value.type===trackTypes.TRACK_REPOST,typeMap)))
 
                const activitiesMap=flow(filter(isTrack),map('origin'))(data.collection)
-               const normalized=normalize(activitiesMap,schema.Array(trackSchema))
+               const normalized=normalize(activitiesMap,new schema.Array(trackSchema))
                dispatch(mergeEntities(normalized.entities))
                dispatch(mergeActivities(normalized.result))
                dispatch(setPaginateLink(data.next_href,paginateLinkTypes.ACTIVITIES))
@@ -91,7 +91,7 @@ export const fetchFollowers=(user,nextHref)=>(dispatch,getState)=>{
     return fetch(url).
            then(response=>response.json()).
            then(data=>{
-               const normalized = normalize(data.collection,schema.Arary(userSchema))
+               const normalized = normalize(data.collection,new schema.Arary(userSchema))
                dispatch(mergeEntities(normalized.entities))
                dispatch(mergeFollowers(normalized.result))
                dispatch(setPaginateLink(data.next_href,paginateLinkTypes.FOLLOWERS))
@@ -114,7 +114,7 @@ export const fetchFavorites=(user,nextHref)=>(dispatch,getState)=>{
     return fetch(url).
            then(response=>response.json()).
            then(data =>{
-               const normalized = normalize(data.collection,schema.Array(trackSchema))
+               const normalized = normalize(data.collection,new schema.Array(trackSchema))
                dispatch(mergeEntities(normalized.entities))
                dispatch(mergeFavorites(normalized.result))
                dispatch(setPaginateLink(data.next_href,paginateLinkTypes.FAVORITES))

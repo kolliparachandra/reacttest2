@@ -56,7 +56,7 @@ const mapDispatchToProps=(dispatch)=>{
     }
 }
 
-commentExtension.propTypes={
+CommentExtension.propTypes={
     onFetchComments:React.PropTypes.func,
     activity:React.PropTypes.object,
     commentIds:React.PropTypes.array,

@@ -200,10 +200,10 @@ Player.propTypes={
   playlist:React.PropTypes.array,
   onTogglePlayTrack:React.PropTypes.func,
   onSetToggle:React.PropTypes.func,
-  onActivateIteratedTrack:Rect.PropTypes.func,
+  onActivateIteratedTrack:React.PropTypes.func,
   onLike:React.PropTypes.func,
   onSetShuffleMode:React.PropTypes.func,
-  isInShuffleMode:React.PropTypes.func  
+  isInShuffleMode:React.PropTypes.bool  
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Player);

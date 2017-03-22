@@ -12,7 +12,7 @@ return{
     activity,
     typeReposts:state.user.typeReposts,
     typeTracks:state.user.typeTracks,
-    userEntities:state.entitites.users,
+    userEntities:state.entities.users,
     isPlaying:state.player.isPlaying,
     activeTrackId:state.player.activeTrackId,
     activeSortType:state.sort.sortType,

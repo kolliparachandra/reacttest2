@@ -8,7 +8,7 @@ import * as filterTypes from '../../constants/filterTypes'
 import {DURATION_FILTER_NAMES} from '../../constants/durationFilter'
 import ButtonActive from '../ButtonActive'
 import ButtonInline from '../ButtonInline'
-const hasFilterView=(activeDurationFilter)=>{
+const hasActiveFilter=(activeDurationFilter)=>{
     const{FILTER_DURATION_TRACK,FILTER_DURATION_MIX} = filterTypes
     return activeDurationFilter === FILTER_DURATION_MIX || activeDurationFilter === FILTER_DURATION_TRACK
 }

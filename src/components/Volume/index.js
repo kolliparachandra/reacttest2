@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import {connect} from react-redux
+import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import * as actions from '../../actions'
 import * as toggleTypes from '../../constants/toggleTypes'
@@ -9,9 +9,10 @@ import ButtonInLine from '../../components/ButtonInline'
 
 const VolumeSlider = ({volume,onChangeVolume})=><Slider min={0} max={100} value={volume} orientation='vertical' onChange={onChangeVolume} />
 
-const Volume=({toggle,volume,onChangeVolume})=>{const volumeClass=classNames('volume',{'volume-visible':toggle[toggleTypes.VOLUME]})
+const Volume=({toggle,volume,onChangeVolume})=>{
+    const volumeClass=classNames('volume',{'volume-visible':toggle[toggleTypes.VOLUME]})
     const isMuted= !volume;
-    const onMute=isMuted?onChangeVolume(70):onChangeVolume(0)
+    const onMute=isMuted?()=>onChangeVolume(70):()=>onChangeVolume(0)
     const muteClass=classNames('fa',{'fa-volume-up':!isMuted,'fa-volume-off':isMuted})
 
     return(
@@ -36,3 +37,11 @@ const mapStateToProps=(state)=>{
         volume:state.player.volume
     }
 }
+
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        onChangeVolume:bindActionCreators(actions.changeVolume,dispatch)
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Volume)

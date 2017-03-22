@@ -1,4 +1,6 @@
 var webpack = require('webpack');
+var es6 = require('es6-promise').polyfill();
+var path = require('path');
 module.exports={
     entry:[
         'babel-polyfill',
@@ -7,13 +9,6 @@ module.exports={
         './src/index.js'
     ],
     module:{
-        preLoaders:[
-            {
-            test: /\.js$/,
-            exclude:/node_modules/,
-            loader:'eslint-loader'    
-        }
-        ],
         loaders:[{
             test:/\.jsx?$/,
             exclude:/node_modules/,
@@ -21,7 +16,10 @@ module.exports={
         },
         {
             test:/\.scss$/,
-            loader:'style!css!sass'
+             include: [
+                    path.resolve(__dirname, "not_exist_path")
+                ],
+            loader:["style-loader", "css-loader", "sass-loader"]
         }
         ]
     },
@@ -37,10 +35,7 @@ module.exports={
         contentBase:'./dist',
         hot:true,
         historyApiFallback:true
-    },
-    eslint:{
-        configFile:'./.eslintrc'
-    },
+     },
      plugins:[
         new webpack.HotModuleReplacementPlugin(),
         new webpack.ProvidePlugin({

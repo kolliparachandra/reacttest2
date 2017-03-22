@@ -27,7 +27,7 @@ const mapStateToProps=(state,props)=>{
         }
     }
 
-    const mapDispatchToProps=(dispatch)=>{
+    const mapDispatchToProps=(dispatch,props)=>{
         const {activity} = props
         return{
             onOpenComments:()=>bindActionCreators(actions.openComments,dispatch)(activity.id),

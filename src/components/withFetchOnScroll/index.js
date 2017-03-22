@@ -2,8 +2,8 @@ import React from 'react'
 const withFetchOnScroll = (Component)=>{
     class FetchOnScroll extends React.Component{
         constructor(props){
-            supers(props)
-            this.onScroll = this.onScroll.bind(this)
+            super(props)
+            this.onScroll = this.onScroll.bind(this);
         }
         componentDidMount(){
             window.addEventListener('scroll',this.onScroll,false)

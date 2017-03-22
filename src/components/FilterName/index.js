@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import * as actions from '../../actions'
 import ButtonInline from '../ButtonInline'
 import InputMenu from '../InputMenu'
-const FilterName = ({ filteNameQuery, onNameFilter }) => {
+const FilterName = ({ filterNameQuery, onNameFilter }) => {
     const filterNameIconClass = classNames(
         'stream-interaction-icon',
         {

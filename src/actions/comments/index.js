@@ -31,7 +31,7 @@ export const fetchComments=(trackId,nextHref)=>(dispatch,getState)=>{
      return fetch(url)
      .then(response=>response.json())
      .then(data=>{
-         const normalized=normalize(data.collection,schema.Array(commentSchema))
+         const normalized=normalize(data.collection,new schema.Array(commentSchema))
          dispatch(mergeEntities(normalized.entities))
          dispatch(mergeComments(normalized.result,trackId))
          dispatch(setPaginateLink(data.next_href,paginateLinkTypes.COMMENTS))
